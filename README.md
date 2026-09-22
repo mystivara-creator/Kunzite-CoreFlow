@@ -1,46 +1,46 @@
 # Kunzite CoreFlow (vFinal)
 
-**Kunzite CoreFlow** adalah modul optimasi tingkat rendah (*low-level system tuning*) yang dirancang khusus untuk **Redmi Note 15 5G (SM6475)** berspesifikasi Snapdragon 6 Gen 3. 
+**Kunzite CoreFlow** is a low-level system tuning module engineered specifically for the **Redmi Note 15 5G (SM6475)** powered by the Snapdragon 6 Gen 3 processor.
 
-Beda dari modul *performance tweak* konvensional yang memaksa CPU/GPU bekerja secara agresif, **Kunzite CoreFlow** berfokus pada **efisiensi sistem, responsivitas UI, kestabilan I/O storage, serta menjaga ketahanan fisik komponen hardware (longevity)** dalam penggunaan jangka panjang.
-
----
-
-## ⚡ Fitur Utama & Fokus Optimasi
-
-- **Smart I/O Queue Management:** Menyesuaikan antrean *block storage* (UFS) untuk menyeimbangkan *throughput* tanpa membebankan kontroler memori.
-- **CPU Overhead Reduction:** Mematikan fitur *tracing* dan statistik I/O latar belakang yang tidak diperlukan agar CPU dapat masuk ke mode *deep sleep* lebih cepat.
-- **Memory & Latency Harmony:** Mengatur *cache pressure* dan *dirty writeback* untuk mencegah *micro-stutter* saat *multitasking* berat tanpa memicu kompresi RAM berlebih.
-- **Hardware Longevity:** Meminimalkan lonjakan suhu (*thermal spikes*) dan siklus penulisan berlebih pada IC Flash UFS demi memperpanjang umur pakai *smartphone*.
+Unlike conventional performance-centric tweaks that force CPU/GPU clocks into aggressive states, **Kunzite CoreFlow** focuses on **system efficiency, UI responsiveness, I/O storage stability, and long-term hardware longevity**.
 
 ---
 
-## 📊 Detail Parameter Tuning
+## ⚡ Core Features & Optimization Focus
 
-| Sektor | Parameter | Nilai Stock | Kunzite CoreFlow | Dampak / Manfaat |
+- **Smart I/O Queue Management:** Balances UFS storage throughput to prevent queue bottlenecks without overtaxing memory controllers.
+- **CPU Overhead Reduction:** Disables unnecessary background I/O tracing and statistics to allow CPU cores to enter deep sleep states faster and remain cooler.
+- **Memory & Latency Harmony:** Fine-tunes cache pressure and dirty memory writeback intervals to eliminate micro-stutters during heavy multitasking without triggering excessive RAM compression.
+- **Hardware Longevity:** Reduces thermal spikes and prevents aggressive write cycles on the UFS IC Flash memory to extend the hardware lifespan of your device.
+
+---
+
+## 📊 Tuning Parameters Overview
+
+| Sector | Parameter | Stock Value | Kunzite CoreFlow | Benefit / Impact |
 | :--- | :--- | :--- | :--- | :--- |
-| **I/O Queue** | `nr_requests` | `62` | `128` | Menjaga kelancaran antrean data tanpa membebankan RAM |
-| **I/O Overhead** | `iostats` | `1` | `0` | Memotong siklus instruksi CPU yang terbuang |
-| **Read-Ahead** | `read_ahead_kb` | `512` KB | `256` KB | Mempercepat *random read* (akses aplikasi & UI) |
-| **Virtual Memory** | `swappiness` | `100` | `60` | Mencegah CPU *overwork* akibat kompresi zRAM terus-menerus |
-| **VM Cache** | `vfs_cache_pressure` | `100` | `80` | Menjaga cache direktori lebih lama untuk *app re-opening* cepat |
-| **Flash Longevity** | `dirty_ratio` | `20` | `15` | Mencegah penumpukan penulisan data masif ke UFS storage |
+| **I/O Queue** | `nr_requests` | `62` | `128` | Smooths out data request queues without straining system RAM |
+| **I/O Overhead** | `iostats` | `1` | `0` | Eliminates wasted CPU cycles caused by constant I/O logging |
+| **Read-Ahead** | `read_ahead_kb` | `512` KB | `256` KB | Accelerates random read operations for faster UI/App launches |
+| **Virtual Memory** | `swappiness` | `120` | `60` | Prevents CPU overwork caused by continuous zRAM compression |
+| **VM Cache** | `vfs_cache_pressure` | `80` | Retains directory caches longer for instant app re-openings |
+| **Flash Longevity** | `dirty_ratio` | `20` | `15` | Prevents massive bulk write spikes to prolong UFS flash life |
 
 ---
 
-## 🚀 Cara Instalasi
+## 🚀 Installation
 
-1. Unduh file `.zip` rilis modul dari repositori ini.
-2. Buka manajer root favoritmu (**KernelSU** / **APatch** / **Magisk**).
-3. Masuk ke menu **Modules** > **Install from storage**.
-4. Pilih file zip modul dan tunggu hingga proses flashing selesai.
-5. Reboot perangkatmu.
+1. Download the latest release `.zip` package from this repository.
+2. Open your preferred root manager (**KernelSU-Next** / **APatch** / **Magisk**).
+3. Navigate to **Modules** > **Install from storage**.
+4. Select the module zip file and wait for the installation process to complete.
+5. Reboot your device.
 
-> **Catatan:** Log eksekusi optimasi akan tersimpan secara otomatis di `/tmp/kernel_tuning.log` setelah perangkat booting penuh.
+> **Note:** Execution logs are generated automatically after a full system boot and saved to `/tmp/kernel_tuning.log`.
 
 ---
 
-## 📜 Lisensi & Pengembang
+## 📜 License & Credit
 
 - **Author:** [mystivara-creator](https://github.com/mystivara-creator)
 - **Target Device:** Redmi Note 15 5G (`kunzite`) / Snapdragon 6 Gen 3 (SM6475)
