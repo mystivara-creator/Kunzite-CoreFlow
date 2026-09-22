@@ -1,0 +1,6 @@
+id=kunzite_coreflow_zero_overhead
+name=CoreFlow
+version=vFinal
+versionCode=100
+author=mystivara-creator
+description=Low-level I/O & Memory tuning for Redmi Note 15 5G (SM6475). Focused on power efficiency, system smoothness, UI responsiveness, and long-term hardware longevity.
