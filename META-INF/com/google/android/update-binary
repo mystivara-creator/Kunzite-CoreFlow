@@ -1,0 +1,30 @@
+#!/system/bin/sh
+# Magisk / KernelSU Module Installer Script
+
+SKIPMOUNT=false
+PROPFILE=true
+POSTFSDATA=false
+LATESTARTSERVICE=true
+
+# Banner Tampilan Instalasi
+ui_print "============================================"
+ui_print "           Kunzite CoreFlow vFinal          "
+ui_print "       Target: Redmi Note 15 5G (SM6475)   "
+ui_print "         By: mystivara-creator              "
+ui_print "============================================"
+ui_print " "
+ui_print " [!] Installing Low-Level System Tuning..."
+
+# Ekstraksi File Modul
+unzip -o "$ZIPFILE" 'boot-completed.sh' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" 'uninstall.sh' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" 'module.prop' -d "$MODPATH" >&2
+
+# Atur Izin Akses File (Permissions)
+set_perm "$MODPATH/boot-completed.sh" 0 0 0755
+set_perm "$MODPATH/uninstall.sh" 0 0 0755
+
+ui_print " "
+ui_print " [✓] Installation complete!"
+ui_print " [✓] Reboot your device to apply changes."
+ui_print "============================================"
