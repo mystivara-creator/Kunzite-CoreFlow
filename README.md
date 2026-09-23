@@ -43,6 +43,11 @@
 
 ---
 
+> ⚠️ **IMPORTANT WARNING:**
+> **Do NOT install or combine other performance tweaks or optimization modules.** Using multiple performance modules simultaneously will cause system conflicts with governor parameters, I/O schedulers, and memory tuning, which degrades overall system stability and battery efficiency.
+
+---
+
 ## ❓ Frequently Asked Questions (FAQ)
 
 ### Q: Why does DevCheck / Franco Kernel Manager show `Deep Sleep: 0s (0%)`?
