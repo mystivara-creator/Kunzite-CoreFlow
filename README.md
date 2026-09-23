@@ -63,6 +63,8 @@ echo 'Total Idle:' \${idle%.*} 'seconds'
 awk -v i=\"\$idle\" -v u=\"\$uptime\" 'BEGIN { print \"Deep Sleep Rate:\", (i/u)*100, \"%\" }'
 "
 
+---
+
 ## 📄 Execution Log Verification
 
 After rebooting, the module automatically logs its execution status to `/tmp/kernel_tuning.log`. Upon success, the last line will display:
