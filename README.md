@@ -5,24 +5,24 @@
 ![Root Support](https://img.shields.io/badge/Root-KernelSU%20Next%20%2F%20Magisk-orange.svg)
 ![Status](https://img.shields.io/badge/Status-Stable-brightgreen.svg)
 
-**Kunzite CoreFlow** adalah modul optimasi kernel & sistem yang dirancang khusus untuk **Redmi Note 15 5G (Snapdragon 6 Gen 3 / SM6475)** running HyperOS. Modul ini berfokus pada pengoreksian konfigurasi bawaan vendor (*stock corrections*) untuk menghasilkan responsivitas UI yang mulus, efisiensi energi, dan kestabilan suhu harian tanpa mengorbankan fitur Doze maupun notifikasi.
+**Kunzite CoreFlow** is a kernel & system optimization module tailored specifically for the **Redmi Note 15 5G (Snapdragon 6 Gen 3 / SM6475)** running HyperOS. This module focuses on correcting vendor stock configurations to achieve silky-smooth UI responsiveness, power efficiency, and daily thermal stability without sacrificing Doze mode or notifications.
 
 ---
 
-## 🌟 Fitur Utama
+## 🌟 Key Features
 
-- **CPU WALT Governor Refinement:** Mengoreksi *rate limits* nol bawaan pabrik (`up_rate_limit_us=1000`, `down_rate_limit_us=4000`) untuk mencegah *thermal spike* dan mengeliminasi *micro-stuttering*.
-- **Adreno GPU Power Management:** Memaksa GPU kembali ke *lowest power state* (295 MHz / pwrlevel 7) saat idle dan mematikan *bus boost* berlebih.
-- **Pure Standby & Deep Sleep:** Mematikan *background scanning* (WiFi/BLE) dan *tracing daemon* bawaan yang memicu *wakelock* tak terdeteksi.
-- **Balanced Virtual Memory (VM):** Pengaturan `swappiness=60` dan `vfs_cache_pressure=80` yang pas untuk efisiensi zRAM serta menjaga keawetan IC Flash UFS.
-- **Multi-Queue UFS Storage Tuning:** Optimasi antrean I/O (`nr_requests=128`, `read_ahead_kb=256KB`) pada seluruh *block device* (`sda`–`sdf`).
-- **100% Reversible:** Dilengkapi skrip `uninstall.sh` presisi yang mengembalikan seluruh nilai ke *stock* bawaan pabrik.
+- **CPU WALT Governor Refinement:** Corrects factory zero rate limits (`up_rate_limit_us=1000`, `down_rate_limit_us=4000`) to eliminate thermal spikes and micro-stuttering.
+- **Adreno GPU Power Management:** Forces the GPU to drop to its lowest power state (295 MHz / pwrlevel 7) during idle transitions and disables unnecessary bus boost.
+- **Pure Standby & Deep Sleep:** Disables background network scanning (WiFi/BLE) and stock tracing daemons that trigger undetected wakelocks.
+- **Balanced Virtual Memory (VM):** Balanced `swappiness=60` and `vfs_cache_pressure=80` to optimize zRAM usage while protecting UFS flash memory longevity.
+- **Multi-Queue UFS Storage Tuning:** Optimizes I/O queues (`nr_requests=128`, `read_ahead_kb=256KB`) across all block devices (`sda`–`sdf`).
+- **100% Reversible:** Features a precise `uninstall.sh` script that restores all modified parameters back to pure factory stock values.
 
 ---
 
-## 📱 Spesifikasi Target
+## 📱 Target Specifications
 
-| Parameter | Spesifikasi |
+| Parameter | Specification |
 | :--- | :--- |
 | **Device** | Redmi Note 15 5G (`kunzite`) |
 | **SoC** | Qualcomm Snapdragon 6 Gen 3 (SM6475) |
@@ -33,30 +33,30 @@
 
 ---
 
-## 🚀 Cara Pemasangan
+## 🚀 Installation Guide
 
-1. Unduh file zip rilis terbaru dari tab **[Releases](./releases)** pada repositori ini.
-2. Flash zip modul melalui **KernelSU Next**, **Magisk**, atau **APatch**.
-3. Reboot perangkatmu.
-4. (Opsional) Verifikasi eksekusi modul via terminal/QuickShell:
+1. Download the latest release zip from the **[Releases](./releases)** tab in this repository.
+2. Flash the zip module via **KernelSU Next**, **Magisk**, or **APatch**.
+3. Reboot your device.
+4. (Optional) Verify module execution via terminal or QuickShell:
    `su -c "cat /tmp/kernel_tuning.log"`
 
 ---
 
-## 📄 Verifikasi Eksekusi Log
+## 📄 Execution Log Verification
 
-Setelah reboot, modul akan secara otomatis mencatat status eksekusi ke `/tmp/kernel_tuning.log`. Jika berhasil, baris akhir akan menampilkan:
+After rebooting, the module automatically logs its execution status to `/tmp/kernel_tuning.log`. Upon success, the last line will display:
 
 `✅ Semua konfigurasi Kunzite CoreFlow vFinal berhasil diterapkan!`
 
 ---
 
-## ⚠️ Penafian (Disclaimer)
+## ⚠️ Disclaimer
 
-Modul ini dibuat dan diuji secara ketat untuk penggunaan harian di Redmi Note 15 5G. Penggunaan modul ini sepenuhnya menjadi tanggung jawab pengguna (*Use at your own risk*).
+This module is built and strictly tested for daily use on the Redmi Note 15 5G. Use this module at your own risk.
 
 ---
 
-## 📜 Lisensi & Kredit
+## 📜 License & Credits
 
-Dilisensikan di bawah lisensi **MIT**. Dikembangkan oleh **Mystivara** untuk komunitas kustomisasi Android.
+Licensed under the **MIT License**. Developed by **Mystivara** for the Android customization community.
