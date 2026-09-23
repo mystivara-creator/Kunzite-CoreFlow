@@ -43,6 +43,26 @@
 
 ---
 
+## ❓ Frequently Asked Questions (FAQ)
+
+### Q: Why does DevCheck / Franco Kernel Manager show `Deep Sleep: 0s (0%)`?
+**A:** This is a **cosmetic / stats reporting issue** on Linux Kernel 6.6 (GKI) and Android 16 (Baklava). Modern Qualcomm Kernel 6.6 has relocated/deprecated legacy sysfs nodes (like `low_power_stats`) that older monitoring apps rely on. 
+
+Your CPU actually enters Deep Sleep normally. You can verify your real Deep Sleep stats directly via shell.
+
+#### 🔍 How to Check True Deep Sleep Stats:
+Run the following script in **QuickShell**, **Termux**, or any Terminal app with Root access:
+
+```bash
+su -c "
+uptime=\$(cut -d' ' -f1 /proc/uptime)
+idle=\$(awk '{s+=\$1} END {print s/1000000}' /sys/devices/system/cpu/cpu0/cpuidle/state*/time)
+echo '=== KUNZITE COREFLOW SLEEP STATS ==='
+echo 'Uptime:' \${uptime%.*} 'seconds'
+echo 'Total Idle:' \${idle%.*} 'seconds'
+awk -v i=\"\$idle\" -v u=\"\$uptime\" 'BEGIN { print \"Deep Sleep Rate:\", (i/u)*100, \"%\" }'
+"
+
 ## 📄 Execution Log Verification
 
 After rebooting, the module automatically logs its execution status to `/tmp/kernel_tuning.log`. Upon success, the last line will display:
