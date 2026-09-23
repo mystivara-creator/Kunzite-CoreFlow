@@ -62,6 +62,7 @@ echo 'Uptime:' \${uptime%.*} 'seconds'
 echo 'Total Idle:' \${idle%.*} 'seconds'
 awk -v i=\"\$idle\" -v u=\"\$uptime\" 'BEGIN { print \"Deep Sleep Rate:\", (i/u)*100, \"%\" }'
 "
+```
 
 ---
 
