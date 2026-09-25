@@ -20,6 +20,27 @@
 
 ---
 
+## 🐛 Known Issues Addressed & Technical Bug Fixes
+
+### 1. Thermal & PMIC Stability Fixes
+- **PMIC Voltage Spikes (`pm6450_tz`):** Fixed aggressive CPU governor rate limits (`up_rate_limit_us`) from earlier builds that caused unnecessary voltage jumps on the Power Management IC, eliminating localized heat build-up.
+- **Thermal Throttling Mitigation:** Corrected `hispeed_load` thresholds to prevent premature CPU frequency scaling during minor background tasks, keeping the Snapdragon 6 Gen 3 within optimal thermal limits.
+
+### 2. UI Smoothness & Latency Optimizations
+- **UI Transition Stuttering:** Fixed frame drops during gesture navigation and app switching by tuning `down_rate_limit_us` for smoother CPU frequency decay (*smooth ramp-down*).
+- **Kernel Overhead Reduction:** Disabled `/proc/sys/kernel/sched_schedstats` tracing overhead to eliminate background CPU cycles spent on unnecessary scheduling analytics.
+- **Input Lag Elimination:** Enforced Uclamp latency sensitivity on `top-app` and `touch` cgroups to prioritize UI rendering threads without causing power drain.
+
+### 3. Audio HAL & System Boot Synchronization
+- **Boot-Time Audio Glitches:** Fixed a race condition where system tuning scripts executed before audio daemons were ready, resolving audio buffer crackling on startup.
+- **Execution Race Conditions:** Implemented a non-blocking `sys.boot_completed` wait loop with a post-boot stabilization delay to ensure Audio HAL and PMIC drivers initialize cleanly.
+
+### 4. Memory & Storage I/O Flow Corrections
+- **UFS Storage Queue Bottlenecks:** Replaced inefficient stock I/O scheduler parameters on primary storage partitions (`sda` through `sdf`) with tuned `mq-deadline` queues and a reduced `fifo_batch` size to prevent I/O blocking.
+- **Aggressive ZRAM Swapping Stutters:** Re-balanced Virtual Memory (VM) parameters to optimize dirty page cache writebacks and reduce aggressive ZRAM compression loops during heavy multitasking.
+
+---
+
 ## 📱 Target Specifications
 
 | Parameter | Specification |
