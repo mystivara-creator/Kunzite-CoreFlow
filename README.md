@@ -11,23 +11,23 @@
 
 ## 📌 Module Evolution & Historical Optimization Log
 
-**Kunzite CoreFlow** is a systemless kernel and sysfs optimization solution engineered specifically for the **Redmi Note 15 5G (`kunzite`)** powered by the **Snapdragon 6 Gen 3 (SM6475)** processor running HyperOS[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span). The module has evolved through rigorous real-world testing to strike the ideal balance between daily performance, gaming stability, and thermal efficiency[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span).
+**Kunzite CoreFlow** is a systemless kernel and sysfs optimization solution engineered specifically for the **Redmi Note 15 5G (`kunzite`)** powered by the **Snapdragon 6 Gen 3 (SM6475)** processor running HyperOS. The module has evolved through rigorous real-world testing to strike the ideal balance between daily performance, gaming stability, and thermal efficiency.
 
 ---
 
 ### 🚀 Chronological Development & Code Evolution
 
 #### 🔹 CoreFlow v2.0 (Initial I/O & VM Foundation)
-* **Execution Script:** Relied on `boot-completed.sh` triggered after `sys.boot_completed=1`[span_4](start_span)[span_4](end_span).
-* **Aggressive Storage Queue:** Set `nr_requests=256` across all UFS block devices (`sda`–`sdf`) and disabled `add_random` to reduce CPU overhead[span_5](start_span)[span_5](end_span).
-* **Virtual Memory Tuning:** Adjusted `dirty_background_ratio=5`, `dirty_ratio=10`, `dirty_expire_centisecs=1500`, and `swappiness=60`[span_6](start_span)[span_6](end_span).
-* **I/O Scheduler Latency:** Enforced `fifo_batch=8`, `low_latency=0`, and `slice_idle=0` on the `mq-deadline` scheduler[span_7](start_span)[span_7](end_span).
+* **Execution Script:** Relied on `boot-completed.sh` triggered after `sys.boot_completed=1`.
+* **Aggressive Storage Queue:** Set `nr_requests=256` across all UFS block devices (`sda`–`sdf`) and disabled `add_random` to reduce CPU overhead.
+* **Virtual Memory Tuning:** Adjusted `dirty_background_ratio=5`, `dirty_ratio=10`, `dirty_expire_centisecs=1500`, and `swappiness=60`.
+* **I/O Scheduler Latency:** Enforced `fifo_batch=8`, `low_latency=0`, and `slice_idle=0` on the `mq-deadline` scheduler.
 
 #### 🔹 CoreFlow v2.1 (CPU Rate Limits & Network Additions)
-* **Execution Script:** Utilized `boot-completed.sh` with a post-boot stabilization delay (`sleep 10`)[span_8](start_span)[span_8](end_span).
-* **Governor Rate Limiting:** Attempted lower `up_rate_limit_us=1000` (1ms) and `down_rate_limit_us=4000` (4ms) with `hispeed_load=90`[span_9](start_span)[span_9](end_span).
-* **GPU & Standby Power:** Disabled Adreno GPU `force_*_on` flags, turned off background Wi-Fi/BLE scanning, and disabled `persist.traced.enable` system tracing[span_10](start_span)[span_10](end_span).
-* **Storage Queue Adjustment:** Lowered `nr_requests` from 256 to **128** and applied `read_ahead_kb=256` for better RAM efficiency[span_11](start_span)[span_11](end_span).
+* **Execution Script:** Utilized `boot-completed.sh` with a post-boot stabilization delay (`sleep 10`).
+* **Governor Rate Limiting:** Attempted lower `up_rate_limit_us=1000` (1ms) and `down_rate_limit_us=4000` (4ms) with `hispeed_load=90`.
+* **GPU & Standby Power:** Disabled Adreno GPU `force_*_on` flags, turned off background Wi-Fi/BLE scanning, and disabled `persist.traced.enable` system tracing.
+* **Storage Queue Adjustment:** Lowered `nr_requests` from 256 to **128** and applied `read_ahead_kb=256` for better RAM efficiency.
 
 #### ⚠️ CoreFlow v2.2 Experimental (Bugs & Issues Identified)
 *Internal testing build prior to the final patched release:*
@@ -36,15 +36,15 @@
 * **[BUG] Audio Disappear Issue:** Identified sudden audio output loss caused by unstable Audio HAL system property injections when running alongside audio tuning modules.
 
 #### 🔹 CoreFlow vFinal 2.2 Balance (Current Patched Build)
-* **KernelSU / APatch Native Execution:** Migrated from `boot-completed.sh` to **`service.sh`**[span_12](start_span)[span_12](end_span)[span_13](start_span)[span_13](end_span)[span_14](start_span)[span_14](end_span). This ensures accurate late-start execution directly by KernelSU Next without relying on framework event triggers[span_15](start_span)[span_15](end_span).
+* **KernelSU / APatch Native Execution:** Migrated from `boot-completed.sh` to **`service.sh`**. This ensures accurate late-start execution directly by KernelSU Next without relying on framework event triggers.
 * **Patched WALT Governor Rate Limits:**
-  * `up_rate_limit_us=0`: Restored to **0ms** (factory default) for instantaneous touch response, completely eliminating Gloo Wall lag in Free Fire MAX[span_16](start_span)[span_16](end_span).
-  * `down_rate_limit_us=5000`: Locked at **5ms** for a smooth CPU frequency ramp-down without overheating the PMIC[span_17](start_span)[span_17](end_span).
-  * `hispeed_freq`: Locked targets for LITTLE Cluster (**1.19 GHz**) and BIG Cluster (**1.42 GHz**) with `hispeed_load=95`[span_18](start_span)[span_18](end_span).
-* **Audio HAL & Touch Stabilization:** Stabilized Audio HAL properties (`vendor.audio.cpu.sched.cpuset.af=4-7`, `onlyfast=true`) and added geometric touch pressure calibration (`touch.size.calibration=geometric`, `touch.pressure.scale=0.001`)[span_19](start_span)[span_19](end_span).
-* **Uclamp Latency Sensitivity:** Enabled `latency_sensitive=1` across `top-app` (`cpu.uclamp.min=11.00`), `touch`, and `audio` cgroups[span_20](start_span)[span_20](end_span).
-* **Zero-Overhead Kernel Execution:** Disabled kernel scheduling analytics (`sched_schedstats=0`) to eliminate background CPU trace cycles[span_21](start_span)[span_21](end_span).
-* **Network & Storage Harmony:** Applied **Google BBR** TCP Congestion Control, reduced aggressive 5G modem icon polling (`5g_icon_group_mode=0`), and enforced the `mq-deadline` scheduler on partition `sda`[span_22](start_span)[span_22](end_span).
+  * `up_rate_limit_us=0`: Restored to **0ms** (factory default) for instantaneous touch response, completely eliminating Gloo Wall lag in Free Fire MAX.
+  * `down_rate_limit_us=5000`: Locked at **5ms** for a smooth CPU frequency ramp-down without overheating the PMIC.
+  * `hispeed_freq`: Locked targets for LITTLE Cluster (**1.19 GHz**) and BIG Cluster (**1.42 GHz**) with `hispeed_load=95`.
+* **Audio HAL & Touch Stabilization:** Stabilized Audio HAL properties (`vendor.audio.cpu.sched.cpuset.af=4-7`, `onlyfast=true`) and added geometric touch pressure calibration (`touch.size.calibration=geometric`, `touch.pressure.scale=0.001`).
+* **Uclamp Latency Sensitivity:** Enabled `latency_sensitive=1` across `top-app` (`cpu.uclamp.min=11.00`), `touch`, and `audio` cgroups.
+* **Zero-Overhead Kernel Execution:** Disabled kernel scheduling analytics (`sched_schedstats=0`) to eliminate background CPU trace cycles.
+* **Network & Storage Harmony:** Applied **Google BBR** TCP Congestion Control, reduced aggressive 5G modem icon polling (`5g_icon_group_mode=0`), and enforced the `mq-deadline` scheduler on partition `sda`.
 
 ---
 
