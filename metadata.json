@@ -1,0 +1,6 @@
+{
+  "name": "Kunzite CoreFlow Studio",
+  "description": "Interactive kernel & sysfs tuning workbench, profile analyzer, and flashable Magisk/KernelSU module builder for Redmi Note 15 5G (SM6475).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
